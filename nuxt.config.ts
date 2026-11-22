@@ -18,11 +18,16 @@ export default defineNuxtConfig({
   // Modules
   modules: ["@nuxtjs/i18n"],
 
+  nitro: {
+    prerender: { crawlLinks: true, routes: ["/", "/en"], failOnError: true },
+  },
+
   // i18n configuration
   i18n: {
+    baseUrl: "https://twbronycon.org",
     locales: [
-      { code: "zh-TW", name: "繁體中文", file: "zh-TW.json" },
-      { code: "en", name: "English", file: "en.json" },
+      { code: "zh-TW", language: "zh-TW", name: "繁體中文", file: "zh-TW.json" },
+      { code: "en", language: "en", name: "English", file: "en.json" },
     ],
     defaultLocale: "zh-TW",
     langDir: "locales/",

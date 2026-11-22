@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import type { MarkdownImage } from "~/types/content";
 
+const assetPath = useAssetPath();
+
 defineProps<{
   images: readonly MarkdownImage[];
   fallbackAlt: string;
@@ -32,7 +34,7 @@ const { t } = useI18n();
         :aria-label="img.alt || fallbackAlt"
       >
         <div class="thumbnail-wrapper">
-          <img :src="img.src" :alt="img.alt || fallbackAlt" />
+          <img :src="assetPath(img.src)" :alt="img.alt || fallbackAlt" />
           <div class="thumbnail-overlay">
             <i class="fa-solid fa-magnifying-glass-plus" />
           </div>

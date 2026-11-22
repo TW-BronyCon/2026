@@ -1,4 +1,5 @@
 <script setup lang="ts">
+const assetPath = useAssetPath();
 import { computed } from "vue";
 
 const { t, locale } = useI18n();
@@ -26,7 +27,7 @@ const formatNumber = (num: number): string => {
       <section class="hero">
         <img
           class="logo"
-          src="/img/text-logo.avif"
+          :src="assetPath('/img/text-logo.avif')"
           alt="TWBC"
           width="2362"
           height="1816"

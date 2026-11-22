@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import type { ProcessedTier } from "~/data/ticketData";
 
+const assetPath = useAssetPath();
+
 defineProps<{ tier: ProcessedTier; includedFeatures: string }>();
 </script>
 
@@ -26,7 +28,7 @@ defineProps<{ tier: ProcessedTier; includedFeatures: string }>();
       </div>
 
       <img
-        :src="tier.img"
+        :src="assetPath(tier.img)"
         :alt="$t(`ticket.tiers.${tier.id}`)"
         class="ticket-img"
       />

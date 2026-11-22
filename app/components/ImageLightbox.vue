@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import { onMounted, onBeforeUnmount } from "vue";
 
+const assetPath = useAssetPath();
+
 const props = defineProps<{
   src: string;
   alt: string;
@@ -43,7 +45,7 @@ onBeforeUnmount(() => {
           <i class="fa-solid fa-xmark"></i>
         </button>
         <div class="lightbox-content">
-          <img :src="src" :alt="alt" class="lightbox-img" />
+          <img :src="assetPath(src)" :alt="alt" class="lightbox-img" />
         </div>
       </div>
     </Transition>

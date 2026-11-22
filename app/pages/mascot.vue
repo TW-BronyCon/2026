@@ -1,4 +1,5 @@
 <script setup lang="ts">
+const assetPath = useAssetPath();
 import { ref, computed } from "vue";
 import { SITE_ORIGIN } from "~/utils/site";
 
@@ -48,7 +49,7 @@ usePageSeo({
             @keydown.space.prevent="isLightboxOpen = true"
           >
             <img
-              src="/img/mascot.avif"
+              :src="assetPath('/img/mascot.avif')"
               alt="TWBC Mascot"
               class="mascot-img"
               width="8156"
@@ -95,7 +96,7 @@ usePageSeo({
       <!-- Lightbox Modal -->
       <ImageLightbox
         v-model:open="isLightboxOpen"
-        :src="currentImage"
+        :src="assetPath(currentImage)"
         :alt="t('mascotPage.title')"
         :close-on-escape="true"
         overlay-cursor="zoom-out"
