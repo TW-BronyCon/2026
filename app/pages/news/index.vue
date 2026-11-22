@@ -413,7 +413,9 @@ usePageSeo({
           <article class="mail" :class="{ opened: openedMap[post.id] }">
             <div
               class="stamp"
-              :style="{ backgroundImage: `url(${assetPath('/img/WaxSeal.avif')})` }"
+              :style="{
+                backgroundImage: `url(${assetPath('/img/WaxSeal.avif')})`,
+              }"
             ></div>
 
             <div

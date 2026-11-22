@@ -26,7 +26,12 @@ export default defineNuxtConfig({
   i18n: {
     baseUrl: process.env.NUXT_I18N_BASE_URL ?? "https://twbronycon.org",
     locales: [
-      { code: "zh-TW", language: "zh-TW", name: "繁體中文", file: "zh-TW.json" },
+      {
+        code: "zh-TW",
+        language: "zh-TW",
+        name: "繁體中文",
+        file: "zh-TW.json",
+      },
       { code: "en", language: "en", name: "English", file: "en.json" },
     ],
     defaultLocale: "zh-TW",
