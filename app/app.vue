@@ -3,7 +3,12 @@ import { SITE_ORIGIN } from "~/utils/site";
 const { t, locale } = useI18n();
 const baseURL = useRuntimeConfig().app.baseURL;
 const localeHead = useLocaleHead({ seo: true });
-useHead(localeHead);
+useHead(() => ({
+  ...localeHead.value,
+  link: localeHead.value.link?.map((link) =>
+    link.href === SITE_ORIGIN ? { ...link, href: `${SITE_ORIGIN}/` } : link,
+  ),
+}));
 
 useHead({
   htmlAttrs: {

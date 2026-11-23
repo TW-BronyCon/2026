@@ -36,6 +36,7 @@ export default defineNuxtConfig({
     ],
     defaultLocale: "zh-TW",
     langDir: "locales/",
+    trailingSlash: true,
     strategy: "prefix_except_default",
     detectBrowserLanguage: {
       useCookie: true,
