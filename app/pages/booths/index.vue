@@ -1,4 +1,5 @@
 <script setup lang="ts">
+const assetPath = useAssetPath();
 import { computed } from "vue";
 import { booths } from "~/data/boothData";
 
@@ -45,7 +46,7 @@ usePageSeo({
               <div class="booth-card-image">
                 <img
                   v-if="booth.image"
-                  :src="booth.image"
+                  :src="assetPath(booth.image)"
                   :alt="booth.name[isEn ? 'en' : 'zh']"
                   loading="lazy"
                   width="360"

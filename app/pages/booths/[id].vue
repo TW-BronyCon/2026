@@ -4,6 +4,7 @@ import { useRoute } from "vue-router";
 import { booths } from "~/data/boothData";
 import { toSiteImageUrl } from "~/utils/site";
 
+const assetPath = useAssetPath();
 const { t, locale } = useI18n();
 const route = useRoute();
 const localePath = useLocalePath();
@@ -78,7 +79,7 @@ usePageSeo({
           >
             <img
               v-if="currentImage"
-              :src="currentImage"
+              :src="assetPath(currentImage)"
               :alt="booth.name[isEn ? 'en' : 'zh']"
               class="main-image"
               width="600"
@@ -99,7 +100,12 @@ usePageSeo({
               type="button"
               @click="activeImageIdx = idx"
             >
-              <img :src="img" alt="Thumbnail" width="80" height="60" />
+              <img
+                :src="assetPath(img)"
+                alt="Thumbnail"
+                width="80"
+                height="60"
+              />
             </button>
           </div>
         </div>

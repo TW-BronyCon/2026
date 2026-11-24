@@ -11,7 +11,11 @@
           }
         "
       >
-        <img :src="layer.src" :alt="layer.alt || ''" @load="onImgLoad" />
+        <img
+          :src="assetPath(layer.src)"
+          :alt="layer.alt || ''"
+          @load="onImgLoad"
+        />
       </div>
     </template>
     <div v-else :class="['bg-layer', variant]"></div>
@@ -20,6 +24,8 @@
 
 <script setup lang="ts">
 import { ref, computed, onMounted, onUnmounted } from "vue";
+
+const assetPath = useAssetPath();
 
 interface BackgroundLayerConfig {
   src: string;

@@ -8,7 +8,11 @@ const isPreview = computed(() => {
   if (import.meta.client) {
     const hostname = window.location.hostname;
     // Show watermark if we are not on the primary production domain (e.g. localhost, staging, preview, etc.)
-    return hostname !== "twbronycon.org" && hostname !== "www.twbronycon.org";
+    return ![
+      "twbronycon.org",
+      "www.twbronycon.org",
+      "2026.twbronycon.org",
+    ].includes(hostname);
   }
   return false;
 });

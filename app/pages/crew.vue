@@ -1,4 +1,5 @@
 <script setup lang="ts">
+const assetPath = useAssetPath();
 import { computed } from "vue";
 import crewData from "~/content/crew.json";
 import generatedCrew from "~/content/.generated-crew.json";
@@ -92,7 +93,7 @@ usePageSeo({
               >
                 <div class="avatar-halo">
                   <img
-                    :src="getAvatarUrl(member)"
+                    :src="assetPath(getAvatarUrl(member))"
                     :alt="
                       member.name ||
                       member.nameHint ||
