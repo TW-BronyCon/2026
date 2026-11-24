@@ -69,6 +69,17 @@ npm run build
 npm run preview
 ```
 
+### GitHub Pages archive
+
+The `deploy/year-path` branch publishes the static site at
+`https://twbronycon.org/2026/`. Set `DISCORD_BOT_TOKEN` and `DISCORD_GUILD_ID` as
+repository Actions secrets. The bot must be in the guild and have the Server
+Members Intent enabled to look up role-based staff.
+
+The Pages build fetches staff names and avatars before prerendering both crew
+pages. It stops before publishing if either secret is missing. Discord roster
+changes appear on the site after the next deployment.
+
 ## Shared page code
 
 - `HomePage.vue` serves both the index and `/home` routes; SEO remains route-owned.

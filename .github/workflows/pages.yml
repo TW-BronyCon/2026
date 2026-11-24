@@ -25,8 +25,14 @@ jobs:
           node-version-file: .node-version
           cache: npm
       - run: npm ci
-      - run: npm run generate
+      - name: Generate static site with Discord staff data
+        run: |
+          : "${DISCORD_BOT_TOKEN:?Set the DISCORD_BOT_TOKEN GitHub Actions secret}"
+          : "${DISCORD_GUILD_ID:?Set the DISCORD_GUILD_ID GitHub Actions secret}"
+          npm run generate
         env:
+          DISCORD_BOT_TOKEN: ${{ secrets.DISCORD_BOT_TOKEN }}
+          DISCORD_GUILD_ID: ${{ secrets.DISCORD_GUILD_ID }}
           NUXT_APP_BASE_URL: /2026/
           NUXT_I18N_BASE_URL: https://twbronycon.org
       - run: test -s .output/public/404.html && test -s .output/public/sitemap.xml
