@@ -69,6 +69,26 @@ npm run build
 npm run preview
 ```
 
+### Static deployments and Discord staff
+
+`npm run generate` fetches Discord staff at build time, then writes the static
+site to `.output/public`. Both hosts use that output; neither needs a Discord
+token at runtime.
+
+- **Cloudflare Pages development site (`twbc-2026-preview`, `main`):** Use
+  `npm run generate` with output directory `.output/public`. Under **Settings →
+  Variables and secrets → Production** (the Cloudflare environment for `main`),
+  add `DISCORD_BOT_TOKEN` as a secret and set `DISCORD_GUILD_ID`. Cloudflare's
+  Preview environment is separate. Only add the bot token there if every branch
+  allowed to build is trusted; without credentials those builds use the checked-in
+  roster.
+- **GitHub Pages production archive (`deploy/year-path`):** The workflow runs
+  `npm run generate` with base path `/2026/`. Set `DISCORD_BOT_TOKEN` and
+  `DISCORD_GUILD_ID` as repository Actions secrets.
+
+Use a bot that's in the guild and has Server Members Intent enabled for
+role-based staff. Roster changes take effect on the next build and deployment.
+
 ## Shared page code
 
 - `HomePage.vue` serves both the index and `/home` routes; SEO remains route-owned.

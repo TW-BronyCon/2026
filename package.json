@@ -7,7 +7,7 @@
     "test": "node --test tests/content.test.mjs",
     "build": "npm run sync:avatars && nuxt build",
     "dev": "npm run sync:avatars && nuxt dev",
-    "generate": "npm run sync:avatars && nuxt generate",
+    "generate": "npm run sync:avatars && nuxt build --prerender --preset static",
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare",
     "typecheck": "npm run sync:avatars && nuxi typecheck",
