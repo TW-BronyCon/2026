@@ -1,4 +1,4 @@
-export const SITE_ORIGIN = "https://twbronycon.org";
+export const SITE_ORIGIN = "https://twbronycon.org/2026";
 
 export function toSiteImageUrl(src: string | null | undefined): string {
   if (!src) return `${SITE_ORIGIN}/img/text-logo.avif`;

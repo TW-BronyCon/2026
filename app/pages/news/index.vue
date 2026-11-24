@@ -11,6 +11,8 @@ import type { ComponentPublicInstance } from "vue";
 import { parseMarkdownWithFrontmatter } from "~/utils/markdown";
 import { formatNewsDate } from "~/utils/date";
 
+const assetPath = useAssetPath();
+
 /**
  * News Page Component
  * Displays list of letter envelopes that open on hover and click, leading to the news details page.
@@ -375,7 +377,7 @@ usePageSeo({
 <template>
   <PageLayout>
     <img
-      src="/img/Why.avif"
+      :src="assetPath('/img/Why.avif')"
       alt=""
       aria-hidden="true"
       class="why"
@@ -409,7 +411,12 @@ usePageSeo({
           @keydown.enter.space.prevent="openMail(post)"
         >
           <article class="mail" :class="{ opened: openedMap[post.id] }">
-            <div class="stamp"></div>
+            <div
+              class="stamp"
+              :style="{
+                backgroundImage: `url(${assetPath('/img/WaxSeal.avif')})`,
+              }"
+            ></div>
 
             <div
               class="wax-seal"
@@ -422,7 +429,7 @@ usePageSeo({
             >
               <img
                 v-if="!isMailOpened(post.id)"
-                src="/img/WaxSeal.avif"
+                :src="assetPath('/img/WaxSeal.avif')"
                 class="wax-closed"
                 alt=""
               />
@@ -695,7 +702,6 @@ usePageSeo({
 .wax-piece-img {
   position: absolute;
   inset: 0;
-  background-image: url("/img/WaxSeal.avif");
   background-size: 100% 100%;
   background-repeat: no-repeat;
   background-position: center;

@@ -124,7 +124,7 @@ const { currentQuote, isQuoteFadingOut } = useQuotes(
             ><i class="fa-brands fa-instagram"></i
           ></a>
           <a
-            href="https://github.com/TW-BronyCon/ManeSite/"
+            href="https://github.com/TW-BronyCon/2026-ManeSite/"
             target="_blank"
             rel="noopener noreferrer"
             aria-label="GitHub"

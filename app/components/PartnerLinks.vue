@@ -1,4 +1,5 @@
 <script setup lang="ts">
+const assetPath = useAssetPath();
 import { partnerSites, type PartnerSite } from "~/data/partnerData";
 
 const { t } = useI18n();
@@ -19,12 +20,12 @@ const getPartnerAlt = (partner: PartnerSite): string => {
         v-if="partner.internal"
         :to="localePath(partner.url)"
         class="partner-link"
-        :style="{ '--logo-url': `url(${partner.logo})` }"
+        :style="{ '--logo-url': `url(${assetPath(partner.logo)})` }"
         :aria-label="getPartnerAlt(partner)"
         role="listitem"
       >
         <img
-          :src="partner.logo"
+          :src="assetPath(partner.logo)"
           :alt="getPartnerAlt(partner)"
           :width="partner.width"
           :height="partner.height"
@@ -39,12 +40,12 @@ const getPartnerAlt = (partner: PartnerSite): string => {
         target="_blank"
         rel="noopener noreferrer"
         class="partner-link"
-        :style="{ '--logo-url': `url(${partner.logo})` }"
+        :style="{ '--logo-url': `url(${assetPath(partner.logo)})` }"
         :aria-label="getPartnerAlt(partner)"
         role="listitem"
       >
         <img
-          :src="partner.logo"
+          :src="assetPath(partner.logo)"
           :alt="getPartnerAlt(partner)"
           :width="partner.width"
           :height="partner.height"

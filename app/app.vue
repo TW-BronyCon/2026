@@ -1,6 +1,14 @@
 <script setup lang="ts">
 import { SITE_ORIGIN } from "~/utils/site";
 const { t, locale } = useI18n();
+const baseURL = useRuntimeConfig().app.baseURL;
+const localeHead = useLocaleHead({ seo: true });
+useHead(() => ({
+  ...localeHead.value,
+  link: localeHead.value.link?.map((link) =>
+    link.href === SITE_ORIGIN ? { ...link, href: `${SITE_ORIGIN}/` } : link,
+  ),
+}));
 
 useHead({
   htmlAttrs: {
@@ -18,7 +26,7 @@ useHead({
     { "http-equiv": "Expires", content: "0" },
   ],
   link: [
-    { rel: "icon", type: "image/x-icon", href: "/favicon.ico" },
+    { rel: "icon", type: "image/x-icon", href: `${baseURL}favicon.ico` },
     { rel: "preconnect", href: "https://fonts.googleapis.com" },
     { rel: "preconnect", href: "https://fonts.gstatic.com", crossorigin: "" },
     {
