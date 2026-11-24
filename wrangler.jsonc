@@ -1,0 +1,36 @@
+{
+  "name": "twbc-2026-preview",
+  "account_id": "2e8b5e652ce4f4753a253c5e0062f5c5",
+  "compatibility_date": "2026-11-24",
+  "main": "workers/crew-snapshot.mjs",
+  "workers_dev": true,
+  "preview_urls": true,
+  "previews": {},
+  "assets": {
+    "directory": "./.output/public",
+    "binding": "ASSETS",
+    "not_found_handling": "404-page",
+    "run_worker_first": ["/_build/crew.json"],
+  },
+  "kv_namespaces": [
+    {
+      "binding": "CREW_SNAPSHOT",
+      "id": "6fc2088966e04fa380ad769162148bc8",
+    },
+  ],
+  "secrets_store_secrets": [
+    {
+      "binding": "DISCORD_BOT_TOKEN",
+      "store_id": "04b2d9d449e343e1a66606d6675ce2b2",
+      "secret_name": "DISCORD_BOT_TOKEN",
+    },
+    {
+      "binding": "DISCORD_GUILD_ID",
+      "store_id": "04b2d9d449e343e1a66606d6675ce2b2",
+      "secret_name": "DISCORD_GUILD_ID",
+    },
+  ],
+  "triggers": {
+    "crons": ["*/15 * * * *"],
+  },
+}

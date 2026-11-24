@@ -71,23 +71,26 @@ npm run preview
 
 ### Static deployments and Discord staff
 
-`npm run generate` fetches Discord staff at build time, then writes the static
-site to `.output/public`. Both hosts use that output; neither needs a Discord
-token at runtime.
-
-- **Cloudflare Pages development site (`twbc-2026-preview`, `main`):** Use
-  `npm run generate` with output directory `.output/public`. Under **Settings →
-  Variables and secrets → Production** (the Cloudflare environment for `main`),
-  add `DISCORD_BOT_TOKEN` as a secret and set `DISCORD_GUILD_ID`. Cloudflare's
-  Preview environment is separate. Only add the bot token there if every branch
-  allowed to build is trusted; without credentials those builds use the checked-in
-  roster.
+- **Cloudflare development:** Workers Builds uses `npm run generate:workers`
+  with `NUXT_APP_BASE_URL` unset, then `npx wrangler deploy` on the primary
+  branch or `npx wrangler preview` on other branches. Static output is in
+  `.output/public`.
 - **GitHub Pages production archive (`deploy/year-path`):** The workflow runs
   `npm run generate` with base path `/2026/`. Set `DISCORD_BOT_TOKEN` and
   `DISCORD_GUILD_ID` as repository Actions secrets.
 
-Use a bot that's in the guild and has Server Members Intent enabled for
-role-based staff. Roster changes take effect on the next build and deployment.
+The primary Cloudflare Worker uses TWBC Secrets Store to refresh the public
+crew snapshot in KV every 15 minutes. The build reads `/_build/crew.json` from
+that Worker, downloads its avatars, and prerenders the crew pages. Branch
+previews do not get Discord bindings. Use a bot that's in the guild and has
+Server Members Intent enabled. Roster changes appear in the next build after
+the snapshot refreshes.
+
+For the initial Cloudflare deployment, build once with `npm run generate`
+instead of `npm run generate:workers`. Wait for
+`https://twbc-2026-preview.twbc.workers.dev/_build/crew.json` to return a roster,
+then build and deploy with the snapshot-driven command. Verify `/crew/` and
+`/en/crew/` before disabling the old Pages builds.
 
 ## Shared page code
 
