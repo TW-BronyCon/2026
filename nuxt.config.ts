@@ -1,4 +1,6 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
+const publishSitemap = process.env.NUXT_APP_BASE_URL === "/2026/";
+
 export default defineNuxtConfig({
   compatibilityDate: "2025-07-15",
   devtools: { enabled: true },
@@ -16,12 +18,28 @@ export default defineNuxtConfig({
   },
 
   // Modules
-  modules: ["@nuxtjs/i18n"],
+  modules: ["@nuxtjs/i18n", "@nuxtjs/sitemap"],
+  site: { url: "https://twbronycon.org", trailingSlash: true },
+  sitemap: {
+    enabled: publishSitemap,
+    autoI18n: false,
+    discoverImages: false,
+    discoverVideos: false,
+    exclude: ["/home", "/en/home"],
+  },
 
   nitro: {
     prerender: {
       crawlLinks: true,
-      routes: ["/", "/en", "/home/", "/en/home/"],
+      routes: [
+        "/",
+        "/en",
+        "/home/",
+        "/en/home/",
+        ...(publishSitemap ? ["/sitemap.xml"] : []),
+      ],
+      // The unprefixed root is already seeded. Keep crawling booth links.
+      ignore: [/^\/2026\/?$/],
       failOnError: true,
     },
   },
