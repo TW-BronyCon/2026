@@ -78,6 +78,7 @@ npm run preview
 - **GitHub Pages production archive (`deploy/year-path`):** The workflow runs
   `npm run generate` with base path `/2026/`. Set `DISCORD_BOT_TOKEN` and
   `DISCORD_GUILD_ID` as repository Actions secrets.
+  Nuxt Sitemap prerenders `/sitemap.xml` for this production base path only.
 
 The primary Cloudflare Worker uses TWBC Secrets Store to refresh the public
 crew snapshot in KV every 15 minutes. The build reads `/_build/crew.json` from
