@@ -82,7 +82,9 @@ changes appear on the site after the next deployment.
 
 ## Shared page code
 
-- `HomePage.vue` serves both the index and `/home` routes; SEO remains route-owned.
+- `HomePage.vue` renders the two locale homepages. Their URLs do not change based
+  on browser language; the footer links switch languages. The old `/home/` and
+  `/en/home/` URLs redirect to their respective homepages and are not in the sitemap.
 - `usePageSeo` shares reactive page metadata and the canonical origin in `app/utils/site.ts`; call it last in page setup. Global defaults remain in `app.vue`.
 - `app/utils/markdown.ts` shares frontmatter parsing and ordered image attachments. News strips matching metadata quotes; events preserve them. Repository Markdown is trusted content.
 - `ContentAttachments` emits image selection; `ImageLightbox` owns overlay rendering and its Escape listener. Pages retain gallery state and choose Escape behavior.

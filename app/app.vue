@@ -16,23 +16,11 @@ useHead({
   },
   titleTemplate: (title) =>
     title ? `${t("seo.ogSiteName")} - ${title}` : t("seo.ogSiteName"),
-  meta: [
-    { name: "format-detection", content: "telephone=no" },
-    {
-      "http-equiv": "Cache-Control",
-      content: "no-cache, no-store, must-revalidate",
-    },
-    { "http-equiv": "Pragma", content: "no-cache" },
-    { "http-equiv": "Expires", content: "0" },
-  ],
+  meta: [{ name: "format-detection", content: "telephone=no" }],
   link: [
     { rel: "icon", type: "image/x-icon", href: `${baseURL}favicon.ico` },
     { rel: "preconnect", href: "https://fonts.googleapis.com" },
     { rel: "preconnect", href: "https://fonts.gstatic.com", crossorigin: "" },
-    {
-      rel: "stylesheet",
-      href: "https://fonts.googleapis.com/css2?family=LXGW+WenKai+Mono+TC&display=swap",
-    },
     {
       rel: "stylesheet",
       href: "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css",
