@@ -23,15 +23,17 @@ const formatNumber = (num: number): string => {
 
 <template>
   <div class="homepage-root">
-    <main class="container">
+    <div class="container">
       <section class="hero">
-        <img
-          class="logo"
-          :src="assetPath('/img/text-logo.avif')"
-          alt="TWBC"
-          width="2362"
-          height="1816"
-        />
+        <h1 class="event-title">
+          <img
+            class="logo"
+            :src="assetPath('/img/text-logo-960.avif')"
+            :alt="$t('seo.ogSiteName')"
+            width="960"
+            height="738"
+          />
+        </h1>
 
         <div class="date">
           {{ $t("home.subtitle") }}
@@ -109,18 +111,18 @@ const formatNumber = (num: number): string => {
 
       <section class="info-card">
         <h2>{{ $t("home.about.title") }}</h2>
-        <h4>{{ $t("home.about.content") }}</h4>
-        <h4 class="pinkie-quote align-right">
+        <p class="info-copy">{{ $t("home.about.content") }}</p>
+        <p class="info-copy pinkie-quote align-right">
           {{ $t("home.about.pinkiequote") }}
-        </h4>
+        </p>
       </section>
 
       <section class="info-card">
         <h2>{{ $t("home.location.title") }}</h2>
-        <h4 class="location-details">
+        <p class="info-copy location-details">
           {{ $t("home.location.name") }}<br />
           {{ $t("home.location.address") }}
-        </h4>
+        </p>
         <iframe
           class="map"
           :title="$t('home.location.mapTitle')"
@@ -134,11 +136,13 @@ const formatNumber = (num: number): string => {
       <section class="info-card large">
         <h2>{{ $t("home.faq.title") }}</h2>
         <div v-for="i in 4" :key="i">
-          <h4>{{ $t("home.faq.questionPrefix") }}{{ $t(`home.faq.q${i}`) }}</h4>
+          <h3 class="info-copy">
+            {{ $t("home.faq.questionPrefix") }}{{ $t(`home.faq.q${i}`) }}
+          </h3>
           <p>{{ $t("home.faq.answerPrefix") }}{{ $t(`home.faq.a${i}`) }}</p>
         </div>
       </section>
-    </main>
+    </div>
   </div>
 </template>
 
@@ -187,6 +191,11 @@ const formatNumber = (num: number): string => {
 }
 
 /* Logo */
+.event-title {
+  margin: 0;
+  font-size: inherit;
+}
+
 .logo {
   display: block;
   width: clamp(20em, 30vw, 40em);
@@ -390,19 +399,20 @@ const formatNumber = (num: number): string => {
   text-shadow: 0 2px 5px rgba(0, 0, 0, 0.7);
 }
 
-.info-card h4 {
+.info-card .info-copy {
   text-align: justify;
   font-size: clamp(1.1em, 2.75cqw, 1.25em);
   text-shadow: 0 2px 5px rgba(0, 0, 0, 0.7);
+  margin-top: 1.33em;
   margin-bottom: 0;
   font-weight: 400;
 }
 
-.info-card h4.location-details {
+.info-card .location-details {
   text-align: center;
 }
 
-.info-card p {
+.info-card p:not(.info-copy) {
   text-align: justify;
   font-size: clamp(1.1em, 2.75cqw, 1.2em);
   text-shadow: 0 2px 5px rgba(0, 0, 0, 0.7);
@@ -421,7 +431,7 @@ const formatNumber = (num: number): string => {
   margin-top: 1em;
 }
 
-.info-card h4.pinkie-quote {
+.info-card .pinkie-quote {
   display: block;
   margin-top: 1em;
   color: var(--color-pink);

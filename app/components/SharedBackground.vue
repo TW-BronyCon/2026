@@ -13,8 +13,13 @@
       >
         <img
           :src="assetPath(layer.src)"
+          :srcset="layer.srcset"
+          :sizes="layer.srcset ? 'max(100vw, 37vh)' : undefined"
+          :width="layer.width"
+          :height="layer.height"
+          :fetchpriority="index === 0 ? 'high' : undefined"
           :alt="layer.alt || ''"
-          @load="onImgLoad"
+          @load="!layer.width && onImgLoad()"
         />
       </div>
     </template>
@@ -29,6 +34,9 @@ const assetPath = useAssetPath();
 
 interface BackgroundLayerConfig {
   src: string;
+  responsiveWidths?: number[];
+  width?: number;
+  height?: number;
   start: number;
   end: number;
   mobileStart: number;
@@ -56,6 +64,9 @@ const props = withDefaults(
     config: () => [
       {
         src: "/img/bg1-2560.avif",
+        responsiveWidths: [768, 1280, 2560],
+        width: 2560,
+        height: 7733,
         start: 0,
         end: 100,
         mobileStart: 0,
@@ -67,6 +78,9 @@ const props = withDefaults(
       },
       {
         src: "/img/bg2-2560.avif",
+        responsiveWidths: [768, 1280, 2560],
+        width: 2560,
+        height: 7733,
         start: -20,
         end: 105,
         mobileStart: -5,
@@ -78,6 +92,9 @@ const props = withDefaults(
       },
       {
         src: "/img/bg3-2560.avif",
+        responsiveWidths: [768, 1280, 2560],
+        width: 2560,
+        height: 7733,
         start: 40,
         end: 95,
         mobileStart: 8,
@@ -92,7 +109,17 @@ const props = withDefaults(
 );
 
 const layerRefs = ref<HTMLElement[]>([]);
-const layers = computed(() => props.config);
+const layers = computed(() =>
+  props.config.map((layer) => ({
+    ...layer,
+    srcset: layer.responsiveWidths
+      ?.map((width) => {
+        const src = layer.src.replace(/-2560\.avif$/, `-${width}.avif`);
+        return `${assetPath(src)} ${width}w`;
+      })
+      .join(", "),
+  })),
+);
 
 const isMobile = () =>
   typeof window !== "undefined" && window.innerWidth <= 800;
@@ -110,7 +137,10 @@ const setupSizes = () => {
     if (!img) return;
 
     const scale = mobile ? layer.mobileScale : layer.scale;
-    const ratio = img.naturalHeight / img.naturalWidth || 1;
+    const ratio =
+      (layer.width && layer.height
+        ? layer.height / layer.width
+        : img.naturalHeight / img.naturalWidth) || 1;
 
     let w = vw * scale;
     let h = w * ratio;
@@ -171,7 +201,7 @@ const requestResizeUpdate = () => {
 
 const onImgLoad = () => {
   setupSizes();
-  updateParallax();
+  requestUpdate();
 };
 
 onMounted(() => {
@@ -179,11 +209,8 @@ onMounted(() => {
     window.addEventListener("scroll", requestUpdate, { passive: true });
     window.addEventListener("resize", requestResizeUpdate);
 
-    // Initial setup after all images are likely loaded or on next tick
-    setTimeout(() => {
-      setupSizes();
-      updateParallax();
-    }, 100);
+    setupSizes();
+    requestUpdate();
   }
 });
 

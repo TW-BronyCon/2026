@@ -19,7 +19,11 @@ export default defineNuxtConfig({
   modules: ["@nuxtjs/i18n"],
 
   nitro: {
-    prerender: { crawlLinks: true, routes: ["/", "/en"], failOnError: true },
+    prerender: {
+      crawlLinks: true,
+      routes: ["/", "/en", "/home/", "/en/home/"],
+      failOnError: true,
+    },
   },
 
   // i18n configuration
@@ -38,10 +42,6 @@ export default defineNuxtConfig({
     langDir: "locales/",
     trailingSlash: true,
     strategy: "prefix_except_default",
-    detectBrowserLanguage: {
-      useCookie: true,
-      cookieKey: "i18n_redirected",
-      redirectOn: "root",
-    },
+    detectBrowserLanguage: false,
   },
 });

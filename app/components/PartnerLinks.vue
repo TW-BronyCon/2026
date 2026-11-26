@@ -14,15 +14,15 @@ const getPartnerAlt = (partner: PartnerSite): string => {
 </script>
 
 <template>
-  <div class="partner-list" role="list">
-    <template v-for="partner in partnerSites" :key="partner.id">
+  <ul class="partner-list" role="list">
+    <li v-for="partner in partnerSites" :key="partner.id">
       <NuxtLink
-        v-if="partner.internal"
-        :to="localePath(partner.url)"
+        :to="partner.internal ? localePath(partner.url) : partner.url"
+        :external="!partner.internal"
+        :target="partner.internal ? undefined : '_blank'"
+        :rel="partner.internal ? undefined : 'noopener noreferrer'"
         class="partner-link"
         :style="{ '--logo-url': `url(${assetPath(partner.logo)})` }"
-        :aria-label="getPartnerAlt(partner)"
-        role="listitem"
       >
         <img
           :src="assetPath(partner.logo)"
@@ -33,28 +33,8 @@ const getPartnerAlt = (partner: PartnerSite): string => {
           loading="lazy"
         />
       </NuxtLink>
-
-      <a
-        v-else
-        :href="partner.url"
-        target="_blank"
-        rel="noopener noreferrer"
-        class="partner-link"
-        :style="{ '--logo-url': `url(${assetPath(partner.logo)})` }"
-        :aria-label="getPartnerAlt(partner)"
-        role="listitem"
-      >
-        <img
-          :src="assetPath(partner.logo)"
-          :alt="getPartnerAlt(partner)"
-          :width="partner.width"
-          :height="partner.height"
-          class="partner-logo"
-          loading="lazy"
-        />
-      </a>
-    </template>
-  </div>
+    </li>
+  </ul>
 </template>
 
 <style scoped>
@@ -63,6 +43,9 @@ const getPartnerAlt = (partner: PartnerSite): string => {
   align-items: center;
   gap: 1.5rem;
   flex-wrap: wrap;
+  margin: 0;
+  padding: 0;
+  list-style: none;
 }
 
 .partner-link {
